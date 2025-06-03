@@ -99,7 +99,7 @@ function authorize(req,res,next){
         if(err){
             return res.status(401).send("Invalid credentials");
         }
-        req.session.phone=payload.phone;
+        req.phone=payload.phone;
         
         next();
     });
@@ -116,7 +116,7 @@ app.post("/login",async (req,res)=>{
         return res.status(404).send("Invalid Credentials");
     }
     if(await bcrypt.compare(password,user.password)){
-        req.session.phone=phone;
+        req.phone=phone;
         //jwt token creating here
         const token=jwt.sign({phone:phone},process.env.Secret_key);
         res.cookie("token", token, {
@@ -155,7 +155,7 @@ app.post("/register", async (req,res)=>{
 })
 
 app.get("/con",authorize, async (req, res) => {
-    const phno = req.session.phone;
+    const phno = req.phone;
     if (!phno) {
         return res.status(401).json({ error: "Not authenticated" });
     }
@@ -170,7 +170,7 @@ app.get("/con",authorize, async (req, res) => {
 
 app.post("/add",authorize,async (req,res)=>{
 
-    const phno=req.session.phone;
+    const phno=req.phone;
     const {phone,name}=req.body;
     const user=await User.findOne({phone:phone})
     if(phno && user){
@@ -197,7 +197,7 @@ app.delete("/logout",(req,res)=>{
 
 
 app.post("/delete",authorize,async (req,res)=>{
-    const phno=req.session.phone;
+    const phno=req.phone;
     const {phone}=req.body;
     console.log(phone);
     
@@ -225,7 +225,7 @@ app.post("/profile",authorize, storage.single("dp"), async (req, res) => {
         return res.status(400).send("No file uploaded");
     }
     const path=req.file.path;
-    const phone=req.session.phone;
+    const phone=req.phone;
     try{
         
         const added=await User.findOneAndUpdate({phone:phone},{profile:path})
@@ -242,7 +242,7 @@ app.post("/profile",authorize, storage.single("dp"), async (req, res) => {
 
 
 app.get("/getDetails",authorize,async (req,res)=>{
-    const phone=req.session.phone;
+    const phone=req.phone;
     const user=await User.findOne({phone:phone});
     try{
         const user=await User.findOne({phone:phone})
@@ -274,7 +274,7 @@ app.post("/getDetails1",authorize,async (req,res)=>{
 
 
 // app.post("/message",authorize,async (req,res)=>{
-//     const phno=req.session.phone;
+//     const phno=req.phone;
 //     const {phone,message}=req.body;
 //     try{
 //          const mess=await User.findOneAndUpdate(
@@ -344,7 +344,7 @@ io.on('connection',(socket)=>{
 
 app.post("/getMessages",authorize,async (req,res)=>{
 
-    const userp=req.session.phone;
+    const userp=req.phone;
     const {phone}=req.body;
     try{
 
@@ -398,7 +398,7 @@ app.post("/getMessages",authorize,async (req,res)=>{
 })
 
 app.get("/islogin",authorize,(req,res)=>{
-    if(req.session.phone){
+    if(req.phone){
       return res.status(200).send("logged in");
     }
     else{
@@ -409,7 +409,7 @@ app.get("/islogin",authorize,(req,res)=>{
 )
 
 app.delete("/delMessage",authorize,async (req,res)=>{
-    const phno=req.session.phone;
+    const phno=req.phone;
     const {phone,id,n}=req.body
     if(n===1){
     const user=await User.findOneAndUpdate({phone:phno},
