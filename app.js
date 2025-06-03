@@ -29,7 +29,7 @@ app.use(session({
   secret: process.env.SESSION_SCR,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
+  cookie: { secure: true }
 }));
 
 
