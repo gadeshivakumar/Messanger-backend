@@ -42,10 +42,10 @@ const io=new Server(server,{
 })
 
 io.use((socket,next)=>{
-    const token=socket.handshake.auth.token[token];
+    const token=socket.handshake.auth.token;
     console.log(token);
     if(token){
-    jwt.verify(token,process.env.Secret_key,(err,payload)=>{
+    jwt.verify(token[token],process.env.Secret_key,(err,payload)=>{
         if(err){
             if (err) {
             console.log("JWT verification failed:", err.message);
