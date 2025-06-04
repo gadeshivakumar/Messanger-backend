@@ -43,6 +43,7 @@ const io=new Server(server,{
 
 io.use((socket,next)=>{
     const token=socket.handshake.auth.token;
+    console.log(token);
     if(token){
     jwt.verify(token,process.env.Secret_key,(err,payload)=>{
         if(err){
@@ -55,6 +56,10 @@ io.use((socket,next)=>{
         next();
     })
 }
+else {
+  next(new Error('No token found'));
+}
+
 })
 
 mongo.connect(process.env.MONGO_URI).then(() => {
