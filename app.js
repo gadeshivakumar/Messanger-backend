@@ -298,6 +298,7 @@ app.post("/getDetails1",authorize,async (req,res)=>{
 
 io.on('connection',(socket)=>{
 
+    console.log(socket.phone)
     pm.set(socket.phone,socket.id)
 
     socket.on('send_message',async ({phone,message})=>{
