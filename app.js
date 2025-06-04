@@ -124,8 +124,8 @@ app.post("/login",async (req,res)=>{
         console.log("started",req.phone)
         res.cookie("token", token, {
             maxAge: 50 * 24 * 60 * 60 * 1000,
-            httpOnly: process.env.NODE_ENV==="ShivaProduction",
-            secure: process.env.NODE_ENV==="ShivaProduction",
+            httpOnly: process.env.NODE_ENV==="production",
+            secure: process.env.NODE_ENV==="production",
             sameSite: "none", 
         });
 
