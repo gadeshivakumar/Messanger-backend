@@ -193,7 +193,12 @@ app.post("/add",authorize,async (req,res)=>{
 })
 
 app.delete("/logout",(req,res)=>{
-    res.clearCookie('token');
+    res.clearCookie("token", {
+  httpOnly: process.env.NODE_ENV === "production",
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "none"
+});
+
     return res.status(200).json({ message: 'Logout successful' });
     
 })
