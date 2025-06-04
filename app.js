@@ -98,7 +98,7 @@ function authorize(req,res,next){
     }
     jwt.verify(token,process.env.Secret_key,(err,payload)=>{
         if(err){
-            print("rcb2")
+            console.log("rcb2")
             return res.status(401).send("Invalid credentials");
         }
         req.phone=payload.phone;
@@ -121,7 +121,7 @@ app.post("/login",async (req,res)=>{
         req.phone=phone;
         //jwt token creating here
         const token=jwt.sign({phone:phone},process.env.Secret_key);
-        console.log("started",req.phone)
+        console.log("started",req.phone,process.env.NODE_ENV)
         res.cookie("token", token, {
             maxAge: 50 * 24 * 60 * 60 * 1000,
             httpOnly: process.env.NODE_ENV==="production",
