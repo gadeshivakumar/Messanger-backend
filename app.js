@@ -406,9 +406,8 @@ app.post("/getMessages",authorize,async (req,res)=>{
 })
 
 app.get("/islogin",authorize,(req,res)=>{
-    console.log("hey i'm the one who is disturbing you ",req.phone);
     if(req.phone){
-      return res.status(200).send("logged in");
+      return res.status(200).json({token:req.cookies.token});
     }
     else{
         return res.status(401).send("not logged in");
