@@ -42,7 +42,7 @@ const io=new Server(server,{
 })
 
 io.use((socket,next)=>{
-    const token=socket.handshake.auth.token;
+    const token=socket.handshake.auth.token[token];
     console.log(token);
     if(token){
     jwt.verify(token,process.env.Secret_key,(err,payload)=>{
@@ -133,7 +133,6 @@ app.post("/login",async (req,res)=>{
             secure: process.env.NODE_ENV==="production",
             sameSite: "none", 
         });
-        console.log(req.cookies);
         console.log("done")
         return res.status(200).send("success")
     }
