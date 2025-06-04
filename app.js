@@ -92,11 +92,13 @@ const User=new mongo.model("User",schema)
 
 function authorize(req,res,next){
     const token=req.cookies.token;
+    console.log(token);
     if(!token){
         return res.status(401).send("no user is found")
     }
     jwt.verify(token,process.env.Secret_key,(err,payload)=>{
         if(err){
+            print("rcb2")
             return res.status(401).send("Invalid credentials");
         }
         req.phone=payload.phone;
