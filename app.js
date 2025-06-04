@@ -97,13 +97,11 @@ const User=new mongo.model("User",schema)
 
 function authorize(req,res,next){
     const token=req.cookies.token;
-    console.log(token);
     if(!token){
         return res.status(401).send("no user is found")
     }
     jwt.verify(token,process.env.Secret_key,(err,payload)=>{
         if(err){
-            console.log("rcb2")
             return res.status(401).send("Invalid credentials");
         }
         req.phone=payload.phone;
@@ -117,7 +115,6 @@ function authorize(req,res,next){
 
 app.post("/login",async (req,res)=>{
     const {phone,password}=req.body
-    console.log(phone,password);
     const user=await User.findOne({phone:phone})
     if(!user){
         return res.status(404).send("Invalid Credentials");
@@ -126,14 +123,13 @@ app.post("/login",async (req,res)=>{
         req.phone=phone;
         //jwt token creating here
         const token=jwt.sign({phone:phone},process.env.Secret_key);
-        console.log("started",req.phone,process.env.NODE_ENV)
         res.cookie("token", token, {
             maxAge: 50 * 24 * 60 * 60 * 1000,
             httpOnly: process.env.NODE_ENV==="production",
             secure: process.env.NODE_ENV==="production",
             sameSite: "none", 
         });
-        console.log("done")
+        
         return res.status(200).send("success")
     }
     res.status(401).send("Invalid Credentials")
@@ -153,10 +149,8 @@ app.post("/register", async (req,res)=>{
         message:[]
     })
     user.save().then(()=>{
-        console.log("success")
         res.status(200).send("successfully registered");
     }).catch((err)=>{
-        console.log(err)
         res.status(401).send("Cant register user Try again");
     })
 })
@@ -190,7 +184,6 @@ app.post("/add",authorize,async (req,res)=>{
     res.status(200).send("added Successfully")
     }
     else{
-    console.log("failed to add")
     res.status(404).send("user not found")
     }
     
@@ -211,7 +204,6 @@ app.delete("/logout",(req,res)=>{
 app.post("/delete",authorize,async (req,res)=>{
     const phno=req.phone;
     const {phone}=req.body;
-    console.log(phone);
     
     try{
         const updates=await User.findOneAndUpdate(
@@ -226,7 +218,6 @@ app.post("/delete",authorize,async (req,res)=>{
         res.status(200).json({ message: "Contact deleted", user: updates });
     }
     catch(err){
-        console.log(err);
         res.status(400).send(err)
     }
 })
@@ -270,7 +261,6 @@ app.get("/getDetails",authorize,async (req,res)=>{
 
 app.post("/getDetails1",authorize,async (req,res)=>{
     const {phone}=req.body;
-    console.log(phone,"entered")
     const user=await User.findOne({phone:phone});
     try{
         const user=await User.findOne({phone:phone})
@@ -348,8 +338,6 @@ io.on('connection',(socket)=>{
         pm.delete(socket.phone)
     })
 
-
-    console.log(pm);
     
 
 })
@@ -428,7 +416,6 @@ app.delete("/delMessage",authorize,async (req,res)=>{
                                 {$pull:{'messages.send':{_id:id}}})
 
         if(user){
-            console.log("done with deleting message")
             return res.status(200).send("successfull deleted")
         }
         else{
@@ -437,12 +424,10 @@ app.delete("/delMessage",authorize,async (req,res)=>{
 
     }
     else{
-        console.log(id,n);
         const user=await User.findOneAndUpdate({phone:phno},
                                 {$pull:{'messages.received':{_id:id}}})
 
             if(user){
-                console.log("done with deleting message")
                 return res.status(200).send("successfull deleted")
             }
             else{
