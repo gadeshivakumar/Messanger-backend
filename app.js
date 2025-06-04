@@ -128,7 +128,7 @@ app.post("/login",async (req,res)=>{
             secure: process.env.NODE_ENV==="production",
             sameSite: "none", 
         });
-
+        console.log(req.cookies);
         console.log("done")
         return res.status(200).send("success")
     }
