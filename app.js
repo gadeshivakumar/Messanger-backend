@@ -119,6 +119,7 @@ app.post("/login",async (req,res)=>{
         req.phone=phone;
         //jwt token creating here
         const token=jwt.sign({phone:phone},process.env.Secret_key);
+        console.log("started",req.phone)
         res.cookie("token", token, {
             maxAge: 50 * 24 * 60 * 60 * 1000,
             httpOnly: true,
@@ -126,7 +127,7 @@ app.post("/login",async (req,res)=>{
             sameSite: "none", 
         });
 
-
+        console.log("done")
         return res.status(200).send("success")
     }
     res.status(401).send("Invalid Credentials")
