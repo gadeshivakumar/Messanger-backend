@@ -110,7 +110,7 @@ function authorize(req,res,next){
 
 app.post("/login",async (req,res)=>{
     const {phone,password}=req.body
-    
+    console.log(phone,password);
     const user=await User.findOne({phone:phone})
     if(!user){
         return res.status(404).send("Invalid Credentials");
@@ -398,6 +398,7 @@ app.post("/getMessages",authorize,async (req,res)=>{
 })
 
 app.get("/islogin",authorize,(req,res)=>{
+    console.log("hey i'm the one who is disturbing you ",req.phone);
     if(req.phone){
       return res.status(200).send("logged in");
     }
