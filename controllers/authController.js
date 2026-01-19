@@ -89,9 +89,8 @@ const signup = async (req, res) => {
 const logout = async (req, res) => {
   try {
     res.clearCookie("token", {
-      // httpOnly: process.env.NODE_ENV === "production",
-      // secure: process.env.NODE_ENV === "production",
-      secure:true,
+      httpOnly: process.env.NODE_ENV === "production",
+      secure: process.env.NODE_ENV === "production",
       sameSite: "none",
     });
 

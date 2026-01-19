@@ -31,12 +31,6 @@ app.use(cook())
 app.use(bp.json())
 
 
-app.use(session({
-  secret: process.env.SESSION_SCR,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}));
 
 
 
