@@ -28,7 +28,7 @@ const login = async (req, res) => {
     const token = jwt.sign(
       { phone },
       process.env.Secret_key,
-      { expiresIn: "50d" }
+      { expiresIn: "7d" }
     );
 
     res.cookie("token", token, {
@@ -36,6 +36,7 @@ const login = async (req, res) => {
       httpOnly: process.env.NODE_ENV==="production",
       secure: process.env.NODE_ENV==="production",
       sameSite: "none",
+      path:"/"
     });
 
     return res.status(200).send({
@@ -92,6 +93,7 @@ const logout = async (req, res) => {
       httpOnly: process.env.NODE_ENV === "production",
       secure: process.env.NODE_ENV === "production",
       sameSite: "none",
+      path:"/"
     });
 
     return res.status(200).json({ message: "Logout successful" });
@@ -104,9 +106,7 @@ const logout = async (req, res) => {
 
 const islogin = async (req, res) => {
   try {
-    const authHeader = req.headers.authorization;
-    const token = authHeader?.split(" ")[1];
-
+    const token=req.cookies?.token
     if (req.phone && token) {
       const user=await User.findOne({phone:req.phone});
       if(!user) return res.status(401).send({
