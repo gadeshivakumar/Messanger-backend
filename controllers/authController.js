@@ -104,7 +104,10 @@ const logout = async (req, res) => {
 
 const islogin = async (req, res) => {
   try {
-    if (req.phone && req.cookies?.token) {
+    const authHeader = req.headers.authorization;
+    const token = authHeader?.split(" ")[1];
+
+    if (req.phone && token) {
       const user=await User.findOne({phone:req.phone});
       if(!user) return res.status(401).send({
         message:"Not logged in"
@@ -112,7 +115,7 @@ const islogin = async (req, res) => {
       return res.status(200).json({ 
             username:user.username,
             phone:user.phone,
-            token:req.cookies?.token,
+            token:token,
             message:"success"     
        });
     }

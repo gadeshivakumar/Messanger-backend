@@ -2,7 +2,6 @@ const jwt=require('jsonwebtoken')
 
 const socketAuthorize=(socket,next)=>{
     const token=socket.handshake.auth.token;
-    console.log(token)
     if(token){
         jwt.verify(token,process.env.Secret_key,(err,payload)=>{
             if(err){
