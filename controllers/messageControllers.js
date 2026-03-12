@@ -4,6 +4,7 @@ const getMessages=async (req,res)=>{
 
     const userp=req.phone;
     const {phone}=req.body;
+    console.log(userp,phone);
     try{
 
         const user1=await User.findOne({phone:userp})
