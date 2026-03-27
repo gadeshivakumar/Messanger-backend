@@ -17,7 +17,7 @@ export default function ChatRoom() {
   }
 
   useEffect(()=>{
-    socket.current=io("http://localhost:5000",{
+    socket.current=io("https://messanger-backend-viwy.onrender.com",{
       withCredentials:true,
     })
     console.log(socket.current);
