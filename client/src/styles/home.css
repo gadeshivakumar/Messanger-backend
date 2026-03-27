@@ -1,0 +1,98 @@
+/* Navbar styling */
+#navbar {
+  height: 10vh;
+  width: 100%;
+  background-color: #4a90e2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Navbar links and button */
+.s {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.s a {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.s a:hover {
+  color: #dff1ff;
+}
+
+.s button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.s button:hover {
+  background-color: #d93636;
+}
+
+/* Main section */
+#main {
+  max-width: 800px;
+  margin: 40px auto;
+  background-color: #fef3c7;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Header inside main */
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sec {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.but button {
+  background-color: #10b981;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.but button:hover {
+  background-color: #059669;
+}
+
+/* Contacts grid */
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  padding: 10px;
+}

@@ -1,0 +1,91 @@
+/* Center the form container */
+#loginForm {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-family: Arial, sans-serif;
+  margin: 8vh auto; /* center vertically with margin */
+}
+
+/* Style for labels */
+#loginForm label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Style for input fields */
+#loginForm input[type="text"],
+#loginForm input[type="password"] {
+  padding: 10px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+#loginForm input[type="text"]:focus,
+#loginForm input[type="password"]:focus {
+  border-color: #4a90e2;
+}
+
+/* Submit button styling */
+#loginForm button[type="submit"] {
+  padding: 12px;
+  background-color: #4a90e2;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#loginForm button[type="submit"]:hover {
+  background-color: #357ABD;
+}
+
+
+.error-message {
+  color: #e63946;
+  background-color: #ffe5e9;
+  padding: 10px 15px;
+  border: 1.5px solid #e63946;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  margin: 10vh auto 20px auto;
+  width: 300px;
+  font-family: Arial, sans-serif;
+}
+
+
+.back {
+  margin: 20px auto 0 auto;
+  display: block;
+  padding: 10px 24px;
+  background-color: #f1f5f9;      /* Light gray background */
+  color: #4a90e2;                 /* Same blue as inputs focus & submit */
+  font-weight: 600;
+  font-size: 14px;
+  border: 2px solid #4a90e2;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  width: 120px;
+  font-family: Arial, sans-serif;
+}
+
+.back:hover {
+  background-color: #4a90e2;
+  color: white;
+}

@@ -1,0 +1,78 @@
+/* Full screen flex center */
+.landing-container {
+  height: 100vh;
+  background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.landing-box {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 50px 40px;
+  width: 320px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.app-title {
+  font-size: 48px;
+  font-weight: 900;
+  margin-bottom: 8px;
+  letter-spacing: 3px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.app-tagline {
+  font-size: 18px;
+  margin-bottom: 40px;
+  font-weight: 400;
+  letter-spacing: 0.6px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.btn {
+  flex: 1;
+  padding: 14px 0;
+  border-radius: 40px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn-login {
+  background-color: #ffffff;
+  color: #000dff;
+  border: 2px solid #ffffff;
+}
+
+.btn-login:hover {
+  background-color: #000dff;
+  color: white;
+  box-shadow: 0 12px 24px #000dffaa;
+}
+
+.btn-register {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.btn-register:hover {
+  background-color: white;
+  color: #000dff;
+  box-shadow: 0 12px 24px #000dffaa;
+}
