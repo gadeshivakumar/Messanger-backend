@@ -1,4 +1,4 @@
-const API_BASE_URL = "https://messanger-backend-viwy.onrender.com/api";
+const API_BASE_URL = "/api";
 
 
 const jsonHeaders = {
@@ -11,7 +11,7 @@ export const authAPI = {
     return fetch(`${API_BASE_URL}/auth/login`, {
       method: "POST",
       headers: jsonHeaders,
-      credentials: "include", // REQUIRED
+      // credentials: "include", // REQUIRED
       body: JSON.stringify({ phone, password })
     });
   },
@@ -20,7 +20,7 @@ export const authAPI = {
     return fetch(`${API_BASE_URL}/auth/register`, {
       method: "POST",
       headers: jsonHeaders,
-      credentials: "include",
+      // credentials: "include",
       body: JSON.stringify({ username, phone, password })
     });
   },
@@ -28,13 +28,13 @@ export const authAPI = {
   logout: async () => {
     return fetch(`${API_BASE_URL}/auth/logout`, {
       method: "DELETE",
-      credentials: "include"
+      // credentials: "include"
     });
   },
 
   checkLogin: async () => {
     return fetch(`${API_BASE_URL}/user/islogin`, {
-      credentials: "include"
+      // credentials: "include"
     });
   }
 };
@@ -43,7 +43,7 @@ export const authAPI = {
 export const userAPI = {
   getContacts: async () => {
     return fetch(`${API_BASE_URL}/user/con`, {
-      credentials: "include"
+      // credentials: "include"
     });
   },
 
@@ -51,7 +51,7 @@ export const userAPI = {
     return fetch(`${API_BASE_URL}/user/add`, {
       method: "POST",
       headers: jsonHeaders,
-      credentials: "include",
+      // credentials: "include",
       body: JSON.stringify({ name, phone })
     });
   },
@@ -59,20 +59,20 @@ export const userAPI = {
   deleteContact: async (phone) => {
     return fetch(`${API_BASE_URL}/user/delete/${phone}`, {
       method: "DELETE",
-      credentials: "include"
+      // credentials: "include"
     });
   },
 
   getUserDetails: async (phone) => {
     return fetch(`${API_BASE_URL}/user/getDetails/${phone}`, {
-      credentials: "include"
+      // credentials: "include"
     });
   },
 
   updateProfile: async (formData) => {
     return fetch(`${API_BASE_URL}/user/profile`, {
       method: "POST",
-      credentials: "include",
+      // credentials: "include",
       body: formData // DO NOT set Content-Type
     });
   },
@@ -81,7 +81,7 @@ export const userAPI = {
     return fetch(`${API_BASE_URL}/user/getMessages`, {
       method: "POST",
       headers: jsonHeaders,
-      credentials: "include",
+      // credentials: "include",
       body: JSON.stringify({ phone })
     });
   },
@@ -91,7 +91,7 @@ export const userAPI = {
       `${API_BASE_URL}/user/${phone}/delMessage/${messageType}/${messageId}`,
       {
         method: "DELETE",
-        credentials: "include"
+        // credentials: "include"
       }
     );
   }
