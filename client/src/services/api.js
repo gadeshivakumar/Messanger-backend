@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://localhost:5000/api";
+const API_BASE_URL = "https://messanger-backend-viwy.onrender.com/api";
 
 
 const jsonHeaders = {
