@@ -19,6 +19,7 @@ export default function Login() {
                 setErrMsg("Please Register before trying to login");
             }
             else{
+              console.log(result)
                 setErrMsg(result.message || "Invalid credentials")
             }
         }
