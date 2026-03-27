@@ -17,9 +17,7 @@ export default function ChatRoom() {
   }
 
   useEffect(()=>{
-    socket.current=io("/",{
-      withCredentials:true,
-    })
+    socket.current=io("/")
     console.log(socket.current);
     const fetchMessages = async () => {
       try {
