@@ -32,11 +32,6 @@ app.use(cook())
 app.use(bp.json())
 
 
-app.use(express.static(path.join(__dirname, "client/dist")));
-
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, "client/dist", "index.html"));
-});
 
 
 
@@ -108,6 +103,11 @@ io.on('connection',(socket)=>{
 app.use('/api/auth',authRouter)
 app.use('/api/user',userRouter)
 
+app.use(express.static(path.join(__dirname, "client/dist")));
+
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "client/dist", "index.html"));
+});
 
 const PORT=process.env.PORT || 5000
 
