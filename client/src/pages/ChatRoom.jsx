@@ -17,7 +17,7 @@ export default function ChatRoom() {
   }
 
   useEffect(()=>{
-    socket.current=io("https://messanger.shiva.jo3.org",{
+    socket.current=io("http://localhost:5000",{
       withCredentials:true,
     })
     console.log(socket.current);

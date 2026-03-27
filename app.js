@@ -12,25 +12,31 @@ const socketAuthorize=require('./middlewares/socketAuthorize')
 const connectDB=require('./config/connectDB')
 const authRouter=require('./routers/authroutes')
 const userRouter=require('./routers/userRoutes')
+const path=require('path')
 
 connectDB()
 
 const User =require('./models/chatSchema')
 
-app.use(cors(
-    {
-        origin:process.env.ORIGIN,
-        credentials:true,
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        allowedHeaders: ["Content-Type", "Authorization"]
-    }
-))
+// app.use(cors(
+//     {
+//         origin:process.env.ORIGIN,
+//         credentials:true,
+//         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//         allowedHeaders: ["Content-Type", "Authorization"]
+//     }
+// ))
 
 app.use(cook())
 
 app.use(bp.json())
 
 
+app.use(express.static(path.join(__dirname, "client/dist")));
+
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "client/dist", "index.html"));
+});
 
 
 
@@ -101,6 +107,7 @@ io.on('connection',(socket)=>{
 
 app.use('/api/auth',authRouter)
 app.use('/api/user',userRouter)
+
 
 const PORT=process.env.PORT || 5000
 
