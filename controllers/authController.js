@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const login = async (req, res) => {
   try {
     const { phone, password } = req.body;
-
+    console.log(phone,password)
     if (!phone || !password) {
       return res.status(400).send("Phone and password required");
     }
