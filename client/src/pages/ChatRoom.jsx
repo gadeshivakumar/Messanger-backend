@@ -51,10 +51,10 @@ export default function ChatRoom() {
       setMessages(prev=>[...prev,curMsg])
     })
 
-    socket.current.on("deleted",async (isOnline)=>{
+    socket.current.on("deleted",async ()=>{
       try {
         const res = await userAPI.getMessages(phone);
-        const {messages,isOnline} = await res.json();
+        const {messages} = await res.json();
         setMessages(messages);
       } catch (err) {
         console.log(err);

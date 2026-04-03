@@ -95,10 +95,10 @@ io.on('connection',(socket)=>{
     })
 
     socket.on("disconnect", () => {
-  pm.delete(socket.phone);
+    pm.delete(socket.phone);
 
-  broadcastOnlineUsers();
-});
+    broadcastOnlineUsers();
+    });
 
     
 
