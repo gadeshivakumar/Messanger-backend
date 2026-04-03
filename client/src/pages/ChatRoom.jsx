@@ -4,12 +4,15 @@ import { useLocation } from 'react-router-dom'
 import {io} from 'socket.io-client';
 import ChatMessage from '../components/ChatMessage';
 import { userAPI } from '../services/api';
+import '../socket_ids.js'
+import phone_map from '../../../socket_ids';
 export default function ChatRoom() {
 
   const locator=useLocation();
   const [message,setMessage]=useState("");
   const {profile,name,phone}=locator.state||{};
   const [messages,setMessages]=useState([])
+  const [status,setStatus]=useState(false);
   const socket=useRef(null);
   const handleSend=()=>{
     socket.current.emit('send_message',{phone:phone,message:message});
@@ -18,7 +21,7 @@ export default function ChatRoom() {
 
   useEffect(()=>{
     socket.current=io("/")
-    console.log(socket.current);
+    setStatus(phone_map.has(phone));
     const fetchMessages = async () => {
       try {
         const res = await userAPI.getMessages(phone);
@@ -37,7 +40,6 @@ export default function ChatRoom() {
         id:msg._id,
         time:msg.timestamp
       }
-      console.log(msg);
       setMessages(prev=>[...prev,curMsg])
     })
 
@@ -48,14 +50,13 @@ export default function ChatRoom() {
         id:msg._id,
         time:msg.timestamp
       }
-      console.log(msg);
       setMessages(prev=>[...prev,curMsg])
     })
 
-    socket.current.on("deleted",async ()=>{
+    socket.current.on("deleted",async (isOnline)=>{
       try {
         const res = await userAPI.getMessages(phone);
-        const messages = await res.json();
+        const {messages,isOnline} = await res.json();
         setMessages(messages);
       } catch (err) {
         console.log(err);
@@ -78,7 +79,11 @@ export default function ChatRoom() {
             backgroundRepeat:"no-repeat",
             backgroundSize:"cover"
         }}></div>
-        <div className="name">{name}</div>
+        <div className="name">
+          <span>{name}</span>
+          <span>{status? "online" : "offline"}</span>
+          </div>
+        
       </div>
       <div className="chats">
         {messages.map((m)=>{

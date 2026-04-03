@@ -53,18 +53,18 @@ io.use(socketAuthorize)
 
 io.on('connection',(socket)=>{
 
-    console.log(socket.phone)
     pm.set(socket.phone,socket.id)
 
     socket.on('send_message',async ({phone,message})=>{
         try{
-         const mess=await User.findOneAndUpdate(
+        
+        const mess=await User.findOneAndUpdate(
             {phone:socket.phone},
             {$push:{'messages.send':{sendTo:phone,message:message}}},
             {new:true}    
-         )
+        )
 
-         const mess1=await User.findOneAndUpdate(
+        const mess1=await User.findOneAndUpdate(
             {phone:phone},
             {$push:{'messages.received':{from:socket.phone,message:message}}},
             {new:true}

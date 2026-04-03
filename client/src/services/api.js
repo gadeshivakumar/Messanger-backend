@@ -85,7 +85,6 @@ export const userAPI = {
       body: JSON.stringify({ phone })
     });
   },
-
   deleteMessage: async (phone, messageType, messageId) => {
     return fetch(
       `${API_BASE_URL}/user/${phone}/delMessage/${messageType}/${messageId}`,
