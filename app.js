@@ -55,6 +55,11 @@ io.on('connection',(socket)=>{
 
     pm.set(socket.phone,socket.id)
 
+    socket.on("isonline", (phone, callback) => {
+        const stat = pm.has(phone);
+        callback(stat);
+        });
+
     socket.on('send_message',async ({phone,message})=>{
         try{
         

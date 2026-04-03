@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom'
 import {io} from 'socket.io-client';
 import ChatMessage from '../components/ChatMessage';
 import { userAPI } from '../services/api';
-import phone_map from '../../../socket_ids';
 export default function ChatRoom() {
 
   const locator=useLocation();
@@ -20,7 +19,7 @@ export default function ChatRoom() {
 
   useEffect(()=>{
     socket.current=io("/")
-    setStatus(phone_map.has(phone));
+    
     const fetchMessages = async () => {
       try {
         const res = await userAPI.getMessages(phone);
@@ -31,6 +30,10 @@ export default function ChatRoom() {
       }
     }
     fetchMessages();
+
+    socket.current.emit("isonline", phone, (stat) => {
+          setStatus(stat);
+        });
 
     socket.current.on('akn',(msg)=>{
       const curMsg={
@@ -61,6 +64,7 @@ export default function ChatRoom() {
         console.log(err);
       }
     })
+
     return ()=>{
       socket.current.off("akn");
       socket.current.off("sent");
