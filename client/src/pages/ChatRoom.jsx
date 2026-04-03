@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom'
 import {io} from 'socket.io-client';
 import ChatMessage from '../components/ChatMessage';
 import { userAPI } from '../services/api';
-import '../socket_ids.js'
 import phone_map from '../../../socket_ids';
 export default function ChatRoom() {
 
