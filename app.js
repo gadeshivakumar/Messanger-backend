@@ -49,16 +49,15 @@ const io=new Server(server,{
 
 io.use(socketAuthorize)
 
-
+function broadcastOnlineUsers() {
+    io.emit("online_users", [...pm.keys()]);
+}
 
 io.on('connection',(socket)=>{
 
     pm.set(socket.phone,socket.id)
 
-    socket.on("isonline", (phone, callback) => {
-        const stat = pm.has(phone);
-        callback(stat);
-        });
+    broadcastOnlineUsers();
 
     socket.on('send_message',async ({phone,message})=>{
         try{
@@ -95,9 +94,11 @@ io.on('connection',(socket)=>{
         socket.emit("deleted");
     })
 
-    socket.on('disconnect',()=>{
-        pm.delete(socket.phone)
-    })
+    socket.on("disconnect", () => {
+  pm.delete(socket.phone);
+
+  broadcastOnlineUsers();
+});
 
     
 

@@ -31,10 +31,6 @@ export default function ChatRoom() {
     }
     fetchMessages();
 
-    socket.current.emit("isonline", phone, (stat) => {
-          setStatus(stat);
-        });
-
     socket.current.on('akn',(msg)=>{
       const curMsg={
         n:2,
@@ -74,6 +70,21 @@ export default function ChatRoom() {
 
   },[])
 
+  useEffect(() => {
+  if (!socket.current) return;
+
+  const handler = (users) => {
+    setStatus(users.includes(phone));
+  };
+
+  socket.current.on("online_users", handler);
+
+  return () => {
+    socket.current.off("online_users", handler);
+  };
+
+}, [phone]);
+
   return (
     <div className='room'>
       <div className="header">
@@ -84,9 +95,9 @@ export default function ChatRoom() {
         }}></div>
         <div className="name">
           <span>{name}</span>
-          <span>{status? "online" : "offline"}</span>
-          </div>
-        
+          <span>{status ? "online" : "offline"}</span>
+        </div>
+                
       </div>
       <div className="chats">
         {messages.map((m)=>{
